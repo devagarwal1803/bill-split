@@ -3,7 +3,7 @@ package services
 import models.Bill
 
 class BillService() {
-    var bills = mutableListOf<Bill>()
+    private var bills = mutableListOf<Bill>()
 
     fun addBill(id:Int, amt:Int){
         var  currentBill = Bill(id, amt)

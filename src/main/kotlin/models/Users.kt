@@ -2,4 +2,4 @@ package models
 
 
 
-data class Users(val id: Int, val name: String, val email: String, val number: Number)
+data class Users(val id: Int, var name: String, val email: String, var number: Number)
