@@ -65,7 +65,13 @@ fun main() {
                     println("option 1-> Add new bill->selected")
                     print("Enter amount:")
                     var amount = readLine()!!
-                    bills.addBill(bills.getID(),amount.toInt())
+                    print("Paid by:")
+                    var paid_by = readLine()!!
+                    print("Paid for:")
+                    var paid_to = readLine()!!
+                    var giver=users.getUserByEmail(paid_by)!!
+                    var taker=users.getUserByEmail(paid_to)!!
+                    users = bills.addBill(bills.getID(), amount.toInt(), giver, taker, users)
                 }
                 option.toInt()==2 -> {
                     println("option 2-> Show all bill->selected")

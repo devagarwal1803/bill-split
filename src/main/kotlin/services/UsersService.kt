@@ -1,6 +1,7 @@
 package services
 
 import models.Users
+import javax.jws.soap.SOAPBinding
 
 class UsersService() {
     private var users = mutableListOf<Users>()
@@ -50,10 +51,24 @@ class UsersService() {
 
     fun showAllUsers(){
         for (user in users){
-            println("User->${user.id} ${user.name} ${user.email} ${user.number}")
+            println("User->${user.id} ${user.name} ${user.email} ${user.number} ${user.balance}")
         }
-        println("----------------Users ended----------------")
+        println("----------------Users ended----------------\n\n")
     }
 
+    fun getUserByEmail(email: String): Users? {
+        for (user in users) {
+            if (user.email == email)
+                return user
+        }
+        return null
+    }
+
+    fun updateBalance(user:Users, amount:Int)
+    {
+        for(i in users)
+            if(i.id==user.id)
+                i.balance=(i.balance?.plus(amount))
+    }
 
 }
