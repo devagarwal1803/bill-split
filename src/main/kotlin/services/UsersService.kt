@@ -50,16 +50,20 @@ class UsersService() {
     }
 
     fun showAllUsers(){
-        for (user in users){
-            println("User->${user.id} ${user.name} ${user.email} ${user.number} ${user.balance}")
-            print("Gave->")
-            for(x in user.givers)
-                println("${x.key} gave ${x.value}")
-            print("Took->")
-            for(x in user.takers)
-                println("${x.key} took ${x.value}")
-            println("---------------Particular-User ended----------------\n")
+        if(users.size>0) {
+            for (user in users) {
+                println("User->${user.id} ${user.name} ${user.email} ${user.number} ${user.balance}")
+                print("Gave->")
+                for (x in user.givers)
+                    println("${x.key} gave ${x.value}")
+                print("Took->")
+                for (x in user.takers)
+                    println("${x.key} took ${x.value}")
+                println("---------------Particular-User ended----------------\n")
+            }
         }
+        else
+            println("No users create till now\n")
         println("----------------Users ended----------------\n\n")
     }
 

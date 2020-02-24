@@ -1,6 +1,7 @@
 import services.BillService
 import services.UsersService
 
+
 fun main() {
     var users = UsersService()
     var bills = BillService()
@@ -66,11 +67,11 @@ fun main() {
                     print("Enter amount:")
                     var amount = readLine()!!
                     print("Paid by:")
-                    var paid_by = readLine()!!
+                    var paidBy = readLine()!!
                     print("Paid for:")
-                    var paid_to = readLine()!!
-                    var giver=users.getUserByEmail(paid_by)!!
-                    var taker=users.getUserByEmail(paid_to)!!
+                    var paidTo = readLine()!!
+                    var giver=users.getUserByEmail(paidBy)!!
+                    var taker=users.getUserByEmail(paidTo)!!
                     users = bills.addBill(bills.getID(), amount.toInt(), giver, taker, users)
                 }
                 option.toInt()==2 -> {
