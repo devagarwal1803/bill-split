@@ -12,7 +12,7 @@ fun main() {
         if(option.toInt()==1)
         {
             println("Entered users")
-            println("Select an option to operate upon:\n 1. Add new user\n 2.Update users\n 3. List all users\n")
+            println("Select an option to operate upon:\n 1. Add new user\n 2. Update users\n 3. List all users\n")
             option = readLine()!!
             when {
                 option.toInt()==1 -> {

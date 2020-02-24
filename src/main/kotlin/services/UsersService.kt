@@ -52,6 +52,13 @@ class UsersService() {
     fun showAllUsers(){
         for (user in users){
             println("User->${user.id} ${user.name} ${user.email} ${user.number} ${user.balance}")
+            print("Gave->")
+            for(x in user.givers)
+                println("${x.key} gave ${x.value}")
+            print("Took->")
+            for(x in user.takers)
+                println("${x.key} took ${x.value}")
+            println("---------------Particular-User ended----------------\n")
         }
         println("----------------Users ended----------------\n\n")
     }
@@ -69,6 +76,14 @@ class UsersService() {
         for(i in users)
             if(i.id==user.id)
                 i.balance=(i.balance?.plus(amount))
+    }
+
+    fun updateGiver(user1: Users, user2: Users,amount: Int)
+    {
+        user1.givers[user2] = user1.givers[user2]?.plus(amount)
+        user2.takers[user1] = user2.takers[user1]?.plus(amount)
+
+
     }
 
 }

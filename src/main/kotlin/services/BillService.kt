@@ -12,8 +12,9 @@ class BillService() {
 
     fun addBill(id:Int, amt:Int, giver: Users, taker:Users, users: UsersService): UsersService {
         var  currentBill = Bill(id, amt, giver, taker)
-        users.updateBalance(giver,amt)
-        users.updateBalance(taker,-1*amt)
+        users.updateBalance(giver,amt/2)
+        users.updateGiver(giver,taker,amt/2)
+        users.updateBalance(taker,(-1*amt)/2)
         bills.add(currentBill)
         return users
     }
