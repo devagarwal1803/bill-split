@@ -1,8 +1,5 @@
 package config
-
-import controllers.BillSplitApp
+import BillSplitApp
 import io.dropwizard.Configuration
 
-fun main(args: Array<String>) {
-    BillSplitApp().run(*args)
-}
+class BillSplitConfig(val name: String = "unknown") : Configuration()

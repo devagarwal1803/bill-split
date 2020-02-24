@@ -1,7 +1,6 @@
 package services
 
 import models.Users
-import javax.jws.soap.SOAPBinding
 
 class UsersService() {
     private var users = mutableListOf<Users>()
@@ -49,9 +48,16 @@ class UsersService() {
         }
     }
 
-    fun showAllUsers(){
+    fun showAllUsers(): String {
+//        var response = mutableMapOf<String,Any>()
         if(users.size>0) {
             for (user in users) {
+//                var temp = mutableMapOf<String, Any>();
+//                temp["id"] = user.id
+//                temp["name"] = user.name
+//                temp["phoneNumber"] = user.number
+//                temp["balance"] = user.balance!!
+
                 println("User->${user.id} ${user.name} ${user.email} ${user.number} ${user.balance}")
                 print("Gave->")
                 for (x in user.givers)
@@ -59,12 +65,11 @@ class UsersService() {
                 print("Took->")
                 for (x in user.takers)
                     println("${x.key} took ${x.value}")
-                println("---------------Particular-User ended----------------\n")
+//                response["data"].a
             }
+            return users.size.toString()
         }
-        else
-            println("No users create till now\n")
-        println("----------------Users ended----------------\n\n")
+        return "No users create till now"
     }
 
     fun getUserByEmail(email: String): Users? {
