@@ -1,5 +1,6 @@
 package services
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import models.Users
 
 class UsersService() {
@@ -18,58 +19,50 @@ class UsersService() {
         return false
     }
 
-    fun addUser(name: String, email: String, number: Number){
-        if(!checkUserWithExistingEmail(email)) {
-            val user = Users(this.getID(), name, email, number)
+    fun addUser(user: Users):String {
+        if(!checkUserWithExistingEmail(user.email)) {
             users.add(user)
+            return "User successfully created"
         }
+        return  "User with email ${user.email} already exists"
     }
 
-    fun updateUser(email: String, name: String)
-    {
+    fun updateUser(newUser: Users):String {
         for (user in users)
         {
-            if(user.email==email)
+            if(user.email==newUser.email)
             {
-                user.name=name
-                return
+                user.name=newUser.name
+                user.number=newUser.number
+                return "User updated successfully"
             }
         }
-        println("User with mail $email does not exist")
-    }
-    fun updateUser(email: String, number: Number)
-    {
-        for (user in users)
-        {
-            if(user.email==email)
-            {
-                user.number=number
-            }
-        }
+        return "User with email ${newUser.email} does not exist"
     }
 
-    fun showAllUsers(): String {
-//        var response = mutableMapOf<String,Any>()
-        if(users.size>0) {
-            for (user in users) {
-//                var temp = mutableMapOf<String, Any>();
-//                temp["id"] = user.id
-//                temp["name"] = user.name
-//                temp["phoneNumber"] = user.number
-//                temp["balance"] = user.balance!!
-
-                println("User->${user.id} ${user.name} ${user.email} ${user.number} ${user.balance}")
-                print("Gave->")
-                for (x in user.givers)
-                    println("${x.key} gave ${x.value}")
-                print("Took->")
-                for (x in user.takers)
-                    println("${x.key} took ${x.value}")
-//                response["data"].a
-            }
-            return users.size.toString()
-        }
-        return "No users create till now"
+    fun showAllUsers(): Any {
+        return users
+////        var response = mutableMapOf<String,Any>()
+//        if(users.size>0) {
+//            for (user in users) {
+////                var temp = mutableMapOf<String, Any>();
+////                temp["id"] = user.id
+////                temp["name"] = user.name
+////                temp["phoneNumber"] = user.number
+////                temp["balance"] = user.balance!!
+//
+//                println("User->${user.id} ${user.name} ${user.email} ${user.number} ${user.balance}")
+//                print("Gave->")
+//                for (x in user.givers)
+//                    println("${x.key} gave ${x.value}")
+//                print("Took->")
+//                for (x in user.takers)
+//                    println("${x.key} took ${x.value}")
+////                response["data"].a
+//            }
+//            return users.size.toString()
+//        }
+//        return "No users create till now"
     }
 
     fun getUserByEmail(email: String): Users? {
@@ -80,19 +73,17 @@ class UsersService() {
         return null
     }
 
-    fun updateBalance(user:Users, amount:Int)
+    fun updateBalance(email: String, amount:Int)
     {
         for(i in users)
-            if(i.id==user.id)
+            if(i.email==email)
                 i.balance=(i.balance?.plus(amount))
     }
 
-    fun updateGiver(user1: Users, user2: Users,amount: Int)
-    {
-        user1.givers[user2] = user1.givers[user2]?.plus(amount)
-        user2.takers[user1] = user2.takers[user1]?.plus(amount)
-
-
-    }
+//    fun updateGiver(giver: String, taker: String,amount: Int)
+//    {
+//        user1.givers[user2] = user1.givers[user2]?.plus(amount)
+//        user2.takers[user1] = user2.takers[user1]?.plus(amount)
+//    }
 
 }

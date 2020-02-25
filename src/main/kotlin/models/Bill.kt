@@ -1,5 +1,14 @@
 package models
+import com.fasterxml.jackson.annotation.*
 
 
-
-data class Bill(val id:Int, val amt:Int, val ownedBy:Users, val ownedTo:Users)
+data class Bill(
+    @JsonProperty("id")
+    val id:Int,
+    @JsonProperty("amt")
+    val amt:Int,
+    @JsonProperty("ownedBy")
+    val ownedBy:String,
+    @JsonProperty("ownedTo")
+    val ownedTo:String
+)
