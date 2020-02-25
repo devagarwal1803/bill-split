@@ -7,12 +7,12 @@ import services.UsersService
 class BillService() {
     private var bills = mutableListOf<Bill>()
 
-    fun getID(): Int {
+    private fun getID(): Int {
         return (bills.size + 1)
     }
 
     fun addBill(id:Int, amt:Int, giver: String, taker:String, users: UsersService): UsersService {
-        var  currentBill = Bill(id, amt, giver, taker)
+        var  currentBill = Bill(getID(), amt, giver, taker)
         users.updateBalance(giver,amt/2)
 //        users.updateGiver(giver,taker,amt/2)
         users.updateBalance(taker,(-1*amt)/2)

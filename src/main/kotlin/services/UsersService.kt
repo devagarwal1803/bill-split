@@ -21,6 +21,7 @@ class UsersService() {
 
     fun addUser(user: Users):String {
         if(!checkUserWithExistingEmail(user.email)) {
+            user.id=getID()
             users.add(user)
             return "User successfully created"
         }
@@ -30,14 +31,16 @@ class UsersService() {
     fun updateUser(newUser: Users):String {
         for (user in users)
         {
-            if(user.email==newUser.email)
+            if(user.id==newUser.id)
             {
+                user.email==newUser.email
                 user.name=newUser.name
                 user.number=newUser.number
+//                return users
                 return "User updated successfully"
             }
         }
-        return "User with email ${newUser.email} does not exist"
+        return "User with id ${newUser.id} does not exist"
     }
 
     fun showAllUsers(): Any {
@@ -77,7 +80,7 @@ class UsersService() {
     {
         for(i in users)
             if(i.email==email)
-                i.balance=(i.balance?.plus(amount))
+                i.balance=(i.balance.plus(amount))
     }
 
 //    fun updateGiver(giver: String, taker: String,amount: Int)
