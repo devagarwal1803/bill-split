@@ -1,0 +1,12 @@
+postgres:
+  ports:
+    - "5432:5432"
+  image: postgres
+  environment:
+    #  https://hub.docker.com/_/postgres/
+    - POSTGRES_PASSWORD=password
+    - POSTGRES_DB=splitbill
+  volumes:
+    - ./:/docker-entrypoint-initdb.d
+
+

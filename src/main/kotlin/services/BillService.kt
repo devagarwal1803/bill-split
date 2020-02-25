@@ -32,4 +32,14 @@ class BillService() {
     fun showAllBills(): Any{
         return bills
     }
+
+    fun settleBill(id:Int){
+        for(bill in bills){
+            if(bill.id==id)
+            {
+
+            }
+        }
+        return
+    }
 }

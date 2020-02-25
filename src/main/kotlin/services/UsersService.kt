@@ -55,6 +55,14 @@ class UsersService() {
         return null
     }
 
+    fun getUserById(id: Int): Users? {
+        for (user in users) {
+            if (user.id == id)
+                return user
+        }
+        return null
+    }
+
     fun updateBalance(id: Int, amount:Int):String {
         for(i in users)
             if(i.id==id) {
