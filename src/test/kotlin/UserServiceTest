@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test
 import org.mockito.Mock
 import services.UsersService
 
-class UserServiceTest() {
+class UserServiceTest {
 
     private lateinit var userService: UsersService
     private lateinit var user: Users

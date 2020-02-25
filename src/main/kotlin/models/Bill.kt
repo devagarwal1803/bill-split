@@ -8,7 +8,7 @@ data class Bill(
     @JsonProperty("amt")
     val amt:Int,
     @JsonProperty("ownedBy")
-    val ownedBy:String,
+    val ownedBy:Any = mutableListOf<Int>(),
     @JsonProperty("ownedTo")
-    val ownedTo:String
+    val ownedTo:Any = mutableListOf<Int>()
 )

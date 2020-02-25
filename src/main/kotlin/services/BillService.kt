@@ -1,8 +1,6 @@
 package services
 
 import models.Bill
-import models.Users
-import services.UsersService
 
 class BillService() {
     private var bills = mutableListOf<Bill>()
@@ -11,19 +9,24 @@ class BillService() {
         return (bills.size + 1)
     }
 
-    private fun addBill(id:Int, amt:Int, giver: String, taker:String, users: UsersService): UsersService {
-        var  currentBill = Bill(getID(), amt, giver, taker)
-        users.updateBalance(giver,amt/2)
+    private fun addBill(id:Int, amt:Int, givers: List<Int>, takers:List<Int>, users: UsersService): UsersService {
+        var totalUsers= givers.size + takers.size
+        var splitAmt = amt/totalUsers
+        var currentBill = Bill(getID(), amt, givers, takers)
+        for (giver in givers)
+            users.updateBalance(giver,splitAmt)
 //        users.updateGiver(giver,taker,amt/2)
-        users.updateBalance(taker,(-1*amt)/2)
+        for(taker in takers)
+            users.updateBalance(taker,(-1*splitAmt))
         bills.add(currentBill)
+        print(users)
         return users
     }
 
     fun addB(bill: Bill, users: UsersService):String{
-        var x=addBill(bill.id, bill.amt, bill.ownedBy, bill.ownedTo, users)
+        var x=addBill(bill.id, bill.amt, bill.ownedBy as List<Int>, bill.ownedTo as List<Int>, users)
         print(x)
-        return "added"
+        return "Bill added successfully"
     }
 
     fun showAllBills(): Any{

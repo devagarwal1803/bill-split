@@ -55,10 +55,10 @@ class UsersService() {
         return null
     }
 
-    fun updateBalance(email: String, amount:Int)
+    fun updateBalance(id: Int, amount:Int)
     {
         for(i in users)
-            if(i.email==email)
+            if(i.id==id)
                 i.balance=(i.balance.plus(amount))
     }
 
