@@ -46,7 +46,7 @@ internal class UsersServiceTest {
     @Test
     fun showAllUsers() {
         val response = userService.showAllUsers()
-        print(response)
+//        print(response)
         assertEquals(1, (response as ArrayList<Users>).size)
     }
 
@@ -54,7 +54,7 @@ internal class UsersServiceTest {
     fun getUserByEmail() {
         val response = userService.getUserByEmail("test@testers.com")
         user = Users(id = 1, name = "test", email = "test@testers.com", number = 12345)
-        print(response)
+//        print(response)
         assertEquals(user.toString(), response.toString())
     }
 
