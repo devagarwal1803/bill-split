@@ -11,7 +11,7 @@ class BillService() {
         return (bills.size + 1)
     }
 
-    fun addBill(id:Int, amt:Int, giver: String, taker:String, users: UsersService): UsersService {
+    private fun addBill(id:Int, amt:Int, giver: String, taker:String, users: UsersService): UsersService {
         var  currentBill = Bill(getID(), amt, giver, taker)
         users.updateBalance(giver,amt/2)
 //        users.updateGiver(giver,taker,amt/2)

@@ -27,7 +27,7 @@ class UserController{
     @Consumes(MediaType.APPLICATION_JSON)
     fun updateUser(user: Users) : String {
         print(user)
-        return users.updateUser(user, users)
+        return users.updateUser(user)
     }
 
     @Path("/user")
