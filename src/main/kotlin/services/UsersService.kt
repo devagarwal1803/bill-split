@@ -55,11 +55,13 @@ class UsersService() {
         return null
     }
 
-    fun updateBalance(id: Int, amount:Int)
-    {
+    fun updateBalance(id: Int, amount:Int):String {
         for(i in users)
-            if(i.id==id)
-                i.balance=(i.balance.plus(amount))
+            if(i.id==id) {
+                i.balance = (i.balance.plus(amount))
+                return "Balance updated"
+            }
+        return "Unable to update balance"
     }
 
 //    fun updateGiver(giver: String, taker: String,amount: Int)
