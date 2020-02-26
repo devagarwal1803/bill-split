@@ -13,8 +13,6 @@ import javax.ws.rs.core.Response
 @Produces(MediaType.APPLICATION_JSON)
 class UserController{
     var users = UsersService()
-//    var bills = BillService()
-
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)

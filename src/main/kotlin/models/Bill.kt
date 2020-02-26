@@ -7,18 +7,18 @@ import javax.persistence.*
 @Entity
 class Bill(
     @Id
-    @Column(name = "bills_id")
     @JsonProperty("id")
-    val id:Int,
+    var id:Int,
     @JsonProperty("amt")
-    val amt:Int,
+    var amt:Int,
+    @ManyToOne
     @JsonProperty("ownedBy")
-    val ownedBy:Users,
+    var ownedBy:Users,
     @JsonProperty("description")
-    val description:String,
+    var description:String,
     @JsonProperty("ownedTo")
-    @OneToMany(cascade = [CascadeType.ALL])
-    val ownedTo:List<Users> = mutableListOf<Users>()
+    @OneToMany(mappedBy = "bill")
+    var ownedTo: MutableList<UserBill> = mutableListOf<UserBill>()
 ): Model(){
     @JsonIgnore
     var isSettled:Boolean=false

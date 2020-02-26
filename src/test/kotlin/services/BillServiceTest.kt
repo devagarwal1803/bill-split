@@ -1,6 +1,6 @@
 package services
 
-import models.Bill
+import requests.Bill
 import models.Users
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

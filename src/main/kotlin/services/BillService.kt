@@ -1,16 +1,16 @@
 package services
 
+import dao.BillDao
 import models.Bill
+import models.UserBill
+import requests.BillRequest
 import models.query.QUsers
 
 class BillService() {
-    private var bills = mutableListOf<Bill>()
+    private var billDao = BillDao()
 
-    private fun getID(): Int {
-        return (bills.size + 1)
-    }
 
-    private fun addBill(id:Int, amt:Int, givers: List<Int>, takers:List<Int>, users: UsersService): UsersService {
+//    private fun addBill(id:Int, amt:Int, givers: List<Int>, takers:List<Int>, users: UsersService): UsersService {
 //        var totalUsers= givers.size + takers.size
 //        var splitAmt = amt/totalUsers
 //        var currentBill = Bill(getID(), amt, givers, takers)
@@ -22,18 +22,27 @@ class BillService() {
 //        bills.add(currentBill)
 //        bill.save()
 //        print(users)
-        return users
-    }
+//        return users
+//    }
 
-    fun addB(bill: Bill):String{
-        var users= QUsers().findList()
-        bill.save()
+    fun addBill(billRequest: BillRequest):String{
+        val users= QUsers().findList()
+        val bill = Bill(id=billDao.getID(),amt = billRequest.amt,description = billRequest.description,ownedBy = users[billRequest.ownedBy])
+        for(id in billRequest.ownedTo) {
+            val userBill=UserBill(bill = bill, users = users[id - 1])
+            bill.ownedTo.add(userBill)
+        }
         print(bill)
+        billDao.addBill(bill)
+        for(id in billRequest.ownedTo){
+            val userBill=UserBill(bill = bill, users = users[id - 1])
+            userBill.save()
+        }
         return "Bill added successfully"
     }
 
     fun showAllBills(): Any{
-        return bills
+        return billDao.showAllBills()
     }
 
 //    fun settleBill(id:Int, users: UsersService):Any{

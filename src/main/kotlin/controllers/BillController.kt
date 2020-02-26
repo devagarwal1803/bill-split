@@ -1,9 +1,7 @@
 package controllers
 
-import models.Bill
-import models.Users
+import requests.BillRequest
 import services.BillService
-import services.UsersService
 import javax.ws.rs.*
 import javax.ws.rs.core.MediaType
 
@@ -35,15 +33,15 @@ class BillController{
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    fun addBill(bill: Bill) : String {
-        print(bill)
-        return bills.addB(bill)
+    fun addBill(billRequest: BillRequest) : String {
+        print(billRequest)
+        return bills.addBill(billRequest)
     }
 
-//    @GET
-//    fun getBills(): Any{
-//        return bills.showAllBills()
-//    }
+    @GET
+    fun getBills(): Any{
+        return bills.showAllBills()
+    }
 //
 //    @POST
 //    @Path("/settle")

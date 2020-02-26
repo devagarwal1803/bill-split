@@ -1,14 +1,13 @@
 package dao
 
 import models.Bill
+import models.query.QBill
 
 class BillDao() {
-//    private var bills = mutableListOf<Bill>()
-//
-//    private fun getID(): Int {
-//        return (bills.size + 1)
-//    }
-//
+    fun getID(): Int {
+        return (QBill().findCount() + 1)
+    }
+
 //    private fun addBill(id:Int, amt:Int, givers: List<Int>, takers:List<Int>, users: UsersService): UsersService {
 //        var totalUsers= givers.size + takers.size
 //        var splitAmt = amt/totalUsers
@@ -22,17 +21,18 @@ class BillDao() {
 //        print(users)
 //        return users
 //    }
-//
-//    fun addB(bill: Bill, users: UsersService):String{
-//        var x=addBill(bill.id, bill.amt, bill.ownedBy as List<Int>, bill.ownedTo as List<Int>, users)
-//        print(x)
-//        return "Bill added successfully"
-//    }
-//
-//    fun showAllBills(): Any{
-//        return bills
-//    }
-//
+
+    fun addBill(bill: Bill):String{
+//        for (id in bill.)
+        bill.save()
+        return "Bill added successfully"
+    }
+
+    fun showAllBills(): Any{
+        print("Hello")
+        return QBill().findList()
+    }
+
 //    fun settleBill(id:Int, users: UsersService):Any{
 //        for(bill in bills){
 //            if(bill.id==id)
