@@ -1,83 +1,47 @@
 package services
 
 import models.Users
-import org.eclipse.jetty.http.HttpStatus
+import dao.UsersDao
+import models.query.QUsers
 
 class UsersService() {
-    private var users = mutableListOf<Users>()
+    private var userDao= UsersDao()
 
-    private fun getID(): Int {
-        return (users.size + 1)
-    }
-
-    private fun checkUserWithExistingEmail(email: String): Boolean {
-        for (user in users)
-        {
-            if(user.email==email)
-                return true
-        }
-        return false
-    }
 
     fun addUser(user: Users):String {
-        if(!checkUserWithExistingEmail(user.email)) {
-            user.id=getID()
-            user.balance=0
-            users.add(user)
-            user.save()
-            return "User successfully created with id ${user.id}"
-        }
-        return  "User with email ${user.email} already exists"
+        if(!userDao.checkUserWithExistingEmail(user.email))
+            return userDao.addUser(user)
+        else
+            throw Exception("User with email ${user.email} already exists")
+
     }
 
-    fun updateUser(newUser: Users):String {
-        for (user in users)
+    fun updateUser(user: Users):String {
+        if(!userDao.checkUserWithExistingEmail(user.email))
         {
-            if(user.id==newUser.id)
-            {
-                if(!checkUserWithExistingEmail(newUser.email)) {
-                    user.email = newUser.email
-                    user.name = newUser.name
-                    user.number = newUser.number
-                    newUser.update()
-//                return users
-//                user.save()
-                    return "User updated successfully"
-                }
-                else
-                    return "User with email ${newUser.email} already exist"
-            }
+            if(userDao.getID()>user.id)
+                return userDao.updateUser(user)
+            else
+                throw Exception("No user exist with id=${user.id}")
         }
-        return "User with id ${newUser.id} does not exist"
+        else
+            throw Exception("User with email ${user.email} already exists")
     }
 
     fun showAllUsers(): Any {
-        return users
+        return userDao.showAllUsers()
     }
 
     fun getUserByEmail(email: String): Users? {
-        for (user in users) {
-            if (user.email == email)
-                return user
-        }
-        return null
+        return userDao.getUserByEmail(email)
     }
 
     fun getUserById(id: Int): Users? {
-        for (user in users) {
-            if (user.id == id)
-                return user
-        }
-        return null
+        return userDao.getUserById(id)
     }
 
     fun updateBalance(id: Int, amount:Int):String {
-        for(i in users)
-            if(i.id==id) {
-                i.balance = (i.balance.plus(amount))
-                return "Balance updated"
-            }
-        return "Unable to update balance"
+        return updateBalance(id,amount)
     }
 
 //    fun updateGiver(giver: String, taker: String,amount: Int)

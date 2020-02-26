@@ -1,5 +1,5 @@
 import config.BillSplitConfig
-import controllers.BillController
+//import controllers.BillController
 import controllers.UserController
 import io.dropwizard.Application
 import io.dropwizard.setup.Environment
@@ -15,8 +15,8 @@ class BillSplitApp : Application<BillSplitConfig>() {
         println("Running ${configuration.name}!")
         val userComponent = UserController()
         environment.jersey().register(userComponent)
-        val billSplitComponent = BillController()
-        environment.jersey().register(billSplitComponent)
+//        val billSplitComponent = BillController()
+//        environment.jersey().register(billSplitComponent)
 
 //        val mapper = ObjectMapper().registerModule(KotlinModule())
     }

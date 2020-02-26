@@ -1,23 +1,25 @@
 package models
-import com.fasterxml.jackson.annotation.*
-import io.ebean.annotation.WhenCreated
-import org.joda.time.DateTime
-import java.util.*
-import javax.persistence.Id
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonProperty
+import io.ebean.Model
+import javax.persistence.*
 
-
-data class Bill(
+@Entity
+class Bill(
     @Id
+    @Column(name = "bills_id")
     @JsonProperty("id")
     val id:Int,
     @JsonProperty("amt")
     val amt:Int,
     @JsonProperty("ownedBy")
-    val ownedBy:Any = mutableListOf<Int>(),
+    val ownedBy:Users,
+    @JsonProperty("description")
+    val description:String,
     @JsonProperty("ownedTo")
-    val ownedTo:Any = mutableListOf<Int>()
-){
+    @OneToMany(cascade = [CascadeType.ALL])
+    val ownedTo:List<Users> = mutableListOf<Users>()
+): Model(){
     @JsonIgnore
-    var isSettled:Boolean=false,
-    @WhenCreated Timestamp creationTime
+    var isSettled:Boolean=false
 }
