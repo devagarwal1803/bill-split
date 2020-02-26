@@ -33,13 +33,26 @@ class BillService() {
         return bills
     }
 
-    fun settleBill(id:Int){
+    fun settleBill(id:Int, users: UsersService):Any{
         for(bill in bills){
             if(bill.id==id)
             {
+                if(bill.isSettled==true)
+                    return "Bill Already settled"
+                var ownedBy = bill.ownedBy as List<Int>
+                var ownedTo= bill.ownedTo as List<Int>
 
+                var totalUsers= ownedBy.size + ownedTo.size
+                var splitAmt = (bill.amt)/totalUsers
+
+                for (giver in ownedTo)
+                    users.updateBalance(giver,splitAmt)
+                for(taker in ownedBy)
+                    users.updateBalance(taker,(-1*splitAmt))
+                bill.isSettled=true
+                return users
             }
         }
-        return
+        return "No such bill exist"
     }
 }

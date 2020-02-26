@@ -1,5 +1,6 @@
 package controllers
 
+import io.ebean.DB
 import models.Bill
 import models.Users
 import services.BillService
@@ -13,6 +14,7 @@ import javax.ws.rs.core.MediaType
 class UserController{
     var users = UsersService()
     var bills = BillService()
+
 
     @Path("/user")
     @POST
@@ -49,5 +51,18 @@ class UserController{
     @GET
     fun getBills(): Any{
         return bills.showAllBills()
+    }
+
+    @Path("/bill/settle")
+    @POST
+    fun settleBill(@QueryParam("id") id:Int): Any {
+        var newUsers= bills.settleBill(id,users)!!
+        print("Hello")
+        if(newUsers=="No such bill exist")
+            return "No such bill exist"
+        if(newUsers=="Bill Already settled")
+            return newUsers
+        users=(newUsers as UsersService)
+        return "Bill Settled"
     }
 }

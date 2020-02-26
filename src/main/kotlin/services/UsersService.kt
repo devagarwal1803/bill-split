@@ -1,7 +1,7 @@
 package services
 
-import com.fasterxml.jackson.annotation.JsonProperty
 import models.Users
+import org.eclipse.jetty.http.HttpStatus
 
 class UsersService() {
     private var users = mutableListOf<Users>()
@@ -22,8 +22,10 @@ class UsersService() {
     fun addUser(user: Users):String {
         if(!checkUserWithExistingEmail(user.email)) {
             user.id=getID()
+            user.balance=0
             users.add(user)
-            return "User successfully created"
+            user.save()
+            return "User successfully created with id ${user.id}"
         }
         return  "User with email ${user.email} already exists"
     }
@@ -33,11 +35,17 @@ class UsersService() {
         {
             if(user.id==newUser.id)
             {
-                user.email=newUser.email
-                user.name=newUser.name
-                user.number=newUser.number
+                if(!checkUserWithExistingEmail(newUser.email)) {
+                    user.email = newUser.email
+                    user.name = newUser.name
+                    user.number = newUser.number
+                    newUser.update()
 //                return users
-                return "User updated successfully"
+//                user.save()
+                    return "User updated successfully"
+                }
+                else
+                    return "User with email ${newUser.email} already exist"
             }
         }
         return "User with id ${newUser.id} does not exist"
