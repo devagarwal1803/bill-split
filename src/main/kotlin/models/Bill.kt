@@ -20,6 +20,6 @@ class Bill(
     @OneToMany(mappedBy = "bill")
     var ownedTo: MutableList<UserBill> = mutableListOf<UserBill>()
 ): Model(){
-    @JsonIgnore
+    @JsonProperty("isSettled")
     var isSettled:Boolean=false
 }
