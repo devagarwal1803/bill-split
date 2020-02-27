@@ -5,8 +5,7 @@ import javax.persistence.*
 
 @Entity
 class UserBill(
-//    @Id
-//    val id: Int,
+//    @Idd,
     @ManyToOne
     val bill: Bill,
     @ManyToOne

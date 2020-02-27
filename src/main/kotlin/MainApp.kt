@@ -1,3 +1,4 @@
+import com.fasterxml.jackson.databind.ObjectMapper
 import config.BillSplitConfig
 import controllers.BillController
 //import controllers.BillController
@@ -15,9 +16,9 @@ class BillSplitApp : Application<BillSplitConfig>() {
     override fun run(configuration: BillSplitConfig, environment: Environment) {
         println("Running ${configuration.name}!")
         val userComponent = UserController()
-        environment.jersey().register(userComponent)
-        val billSplitComponent = BillController()
-        environment.jersey().register(billSplitComponent)
+        environment!!.jersey().register(userComponent)
+        val billComponent = BillController()
+        environment!!.jersey().register(billComponent)
 
 //        val mapper = ObjectMapper().registerModule(KotlinModule())
     }
