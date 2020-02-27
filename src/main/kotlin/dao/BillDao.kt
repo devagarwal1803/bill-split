@@ -1,9 +1,10 @@
 package dao
 
+import io.ebean.Database
 import models.Bill
 import models.query.QBill
 
-class BillDao() {
+class BillDao(var database: Database) {
     fun getID(): Int {
         return (QBill().findCount() + 1)
     }
@@ -29,7 +30,6 @@ class BillDao() {
     }
 
     fun showAllBills(): Any{
-        print("Hello")
         return QBill().findList()
     }
 

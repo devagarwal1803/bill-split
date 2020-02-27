@@ -1,9 +1,10 @@
 package dao
+import io.ebean.Database
 import models.Users
 import models.query.QUsers
 
-class UsersDao() {
-//    private var users = mutableListOf<Users>()
+open class UsersDao(var database:Database) {
+
     fun getID(): Int {
         return (QUsers().findCount() + 1)
     }

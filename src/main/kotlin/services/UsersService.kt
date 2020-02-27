@@ -4,9 +4,7 @@ import models.Users
 import dao.UsersDao
 import models.query.QUsers
 
-class UsersService() {
-    private var userDao= UsersDao()
-
+class UsersService(private val userDao: UsersDao) {
 
     fun addUser(user: Users):String {
         if(!userDao.checkUserWithExistingEmail(user.email))

@@ -1,9 +1,6 @@
 package response
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
-import models.UserBill
-import models.Users
 
 class BillResponse (
     @JsonProperty("id")
@@ -11,11 +8,10 @@ class BillResponse (
     @JsonProperty("amt")
     var amt:Int,
     @JsonProperty("ownedBy")
-    var ownedBy:Users,
+    var ownedBy:UserResponse,
     @JsonProperty("description")
     var description:String,
     @JsonProperty("ownedTo")
-//    @JsonIgnore
     var ownedTo: MutableList<UserResponse> = mutableListOf<UserResponse>()
 ){
 }

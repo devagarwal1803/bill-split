@@ -8,8 +8,7 @@ import javax.ws.rs.core.MediaType
 @Path("/bill")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-class BillController{
-    private var bills = BillService()
+class BillController(private var bills:BillService){
 //    var users = UsersService()
 //    @POST
 //    @Consumes(MediaType.APPLICATION_JSON)
@@ -47,7 +46,6 @@ class BillController{
     @Path("/settle")
     fun settleBill(@QueryParam("id") id:Int): Any {
         var newUsers= bills.settleBill(id)!!
-        print("Hello")
         if(newUsers=="No such bill exist")
             return "No such bill exist"
         if(newUsers=="Bill Already settled")
