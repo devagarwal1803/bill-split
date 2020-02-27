@@ -11,11 +11,9 @@ import services.UsersService
 
 
 class MainApp : Application<BillSplitConfig>() {
-
     companion object{
         @JvmStatic
         fun main(args: Array<String>) {
-
             MainApp().run("server")
         }
     }
@@ -31,6 +29,7 @@ class MainApp : Application<BillSplitConfig>() {
 
         val userComponent = UserController(userService)
         environment.jersey().register(userComponent)
+
         val billComponent = BillController(billService)
         environment.jersey().register(billComponent)
 

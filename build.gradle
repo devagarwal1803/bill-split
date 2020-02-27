@@ -14,7 +14,7 @@ apply plugin: 'docker-compose'
 apply plugin: 'org.jetbrains.kotlin.kapt'
 apply plugin: 'io.ebean'
 
-mainClassName = 'MainAppKt'
+mainClassName = 'MainApp'
 
 sourceCompatibility = 1.8
 
